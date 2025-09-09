@@ -24,7 +24,7 @@ pipeline {
       }
     }
     stage('terraform Apply') {
-      stapes {
+      steps {
         bat 'terraform apply -auto-approve tfplan'
       }
     }
