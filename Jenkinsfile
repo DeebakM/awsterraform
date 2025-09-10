@@ -8,8 +8,8 @@ pipeline {
 
     stage('git clone'){
       steps {
-        git branch:'main', changelog: false, poll: false, url:'https://github.com/DeebakM/terraformproject.git',
-        credentialsId: 'Jenkins-Github'
+        git branch:'main', changelog: false, poll: false, url:'https://github.com/DeebakM/awsterraform.git'
+       
       }
     }
     stage('terraform init') {
