@@ -8,7 +8,7 @@ pipeline {
 
     stage('git clone'){
       steps {
-        git branch:'main', url:'https://github.com/DeebakM/terraformproject.git'
+        git branch:'main', changelog: false, poll: false, url:'https://github.com/DeebakM/terraformproject.git'
       }
     }
     stage('terraform init') {
