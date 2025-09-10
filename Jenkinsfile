@@ -1,9 +1,7 @@
 pipeline {
   agent any
   environment {
-    AWS_ACCESS_KEY_ID  = credentials('aws-access-key')
-    AWS_SECRET_KEY_ID  = credentials('aws-secret-key')
-    AWS_DEFAULT_REGION = "us-east-1"
+        AWS_REGION = "us-east-1"
   }
 
   stages {
@@ -20,12 +18,19 @@ pipeline {
     }
     stage('terraform plan') {
       steps {
-        bat 'terraform plan'
+        withAWS(credentials: 'aws-jenkins-vpc', region: "${AWS_REGION}") {
+          bat 'terraform plan -out=tfplan'
+        }
+      
       }
     }
     stage('terraform Apply') {
       steps {
-        bat 'terraform apply -auto-approve tfplan'
+        withAWS(credentials: 'aws-jenkins-vpc', region: "${AWS_REGION}") {
+          bat 'terraform apply -auto-approve tfplan'
+
+        }
+        
       }
     }
   }
